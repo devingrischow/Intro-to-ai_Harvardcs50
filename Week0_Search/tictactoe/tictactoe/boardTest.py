@@ -1,14 +1,69 @@
+def winner(board):
+    """
+    Returns the winner of the game, if there is one.
+    """
+
+    #Side To Side check
+    for row in board:
+        if row[0] == X and row[1] == X and row[2] == X:
+            return X
+        elif row[0] == O and row[1] == O and row[2] == O:
+            return O
+        
+            
+
+    #jimbo up and down check
+    for col in range(3):
+        if board[0][col] == X and board[1][col] == X and board[2][col] == X:
+            return X
+            
+           
+        if board[0][col] == O and board[1][col] == O and board[2][col] == O:
+           return O
+    
+    #Charles diagonal Check
+    if board[0][0] == X and board[1][1] == O and board[2][2] == X or board[0][2] == X and board[1][1] == X and board[2][0] == X:
+        return X
+        
+    elif board[0][0] == O and board[1][1] == O and board[2][2] == O or board[0][2] == O and board[1][1] == O and board[2][0] == O:
+        return O
+    
+    return None
+    
+
+    
+    
+        
+        
+        
+    
+     
+        
+        
+
+        
+
+        
+        
+        
+
+
+
+            
+
+
+
 X = "X"
-Y = "Y"
-sampleboard = [[None, None, None],
-               [None, X, None],
-               [None, None, None]
+O = "O"
+sampleboard = [[O, None, X],
+               [X, X, None],
+               [X, None, O]
 ]
 
+print(sampleboard, "start state")
 
-print(sampleboard[1][1])
-center = sampleboard[1][1]
+print(winner(sampleboard))
 
-center = Y
-print(center)
+
+
 

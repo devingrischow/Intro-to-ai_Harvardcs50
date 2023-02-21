@@ -57,10 +57,17 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    if action is None:
+    if action is not None:
+        newBoard = copy.deepcopy(board)
+        newboard = newboard[action[0]][action[1]]
+        return newboard
+
+
+    else:
         raise Exception("Not a valid Action")
-    newBoard = copy.deepcopy(board)
-    newboard = newboard[action[0]][action[1]]
+    
+
+
     
 
 
@@ -68,14 +75,54 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+
+    #Side To Side check
+    for row in board:
+        if row[0] == X and row[1] == X and row[2] == X:
+            return X
+        elif row[0] == O and row[1] == O and row[2] == O:
+            return O
+        
+            
+
+    #jimbo up and down check
+    for col in range(3):
+        if board[0][col] == X and board[1][col] == X and board[2][col] == X:
+            return X
+            
+           
+        if board[0][col] == O and board[1][col] == O and board[2][col] == O:
+           return O
+    
+    #Charles diagonal Check
+    if board[0][0] == X and board[1][1] == O and board[2][2] == X or board[0][2] == X and board[1][1] == X and board[2][0] == X:
+        return X
+        
+    elif board[0][0] == O and board[1][1] == O and board[2][2] == O or board[0][2] == O and board[1][1] == O and board[2][0] == O:
+        return O
+    
+    return None
+    
+
+    
+    
+        
+        
+ 
+
+
+    
 
 
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    if winner(board) == X or winner(board) == O:
+        return True
+    else:
+        return False
+    
 
 
 def utility(board):
