@@ -7,7 +7,7 @@ import copy
 
 X = "X"
 O = "O"
-EMPTY = None
+EMPTY = ""
 
 
 def initial_state():
@@ -23,20 +23,31 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
+    xCount = 0
+    oCount = 0
     #player checks whos turn it is, if there is a X on the board, it will be O's turn, and if a O is on the board, it will be X's turn.
-    if X in board:
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == X:
+                xCount += 1
+            elif board[row][col] == O:
+                oCount += 1
+    print(xCount, oCount, "X O")
+
+    if xCount > oCount:
         return O
-    elif O in board:
+    elif xCount < oCount:
         return X
-    else:   #if no turn is on the board, return X's turn
+    else:
         return X
+
 
 
 
     
 
 
-def actions(board):
+def actions(board): 
     """
     Returns set of all possible actions (i, j) available on the board.
     """
@@ -57,14 +68,29 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    print(action, "ACTION")
     if action is not None:
-        newBoard = copy.deepcopy(board)
-        newboard = newboard[action[0]][action[1]]
-        return newboard
+        print(action)
+        if player(board) == X:
+            print("Xturn")
+        
+            newBoard = board
+            newBoard[action[0]][action[1]] = X
+            print("board after a move", newBoard)
+            return newBoard
+        elif player(board) == O:
+            print("Oturn")
+            newBoard = copy.deepcopy(board)
+            newBoard[action[0]][action[1]] = O
+            print("board after a move", newBoard)
+            return newBoard
+        else:
+            raise Exception("Not a valid Action")
+    
+    print("board is being dumb")
 
 
-    else:
-        raise Exception("Not a valid Action")
+    
     
 
 
@@ -77,6 +103,8 @@ def winner(board):
     """
 
     #Side To Side check
+    print("side to side check")
+    print(board)
     for row in board:
         if row[0] == X and row[1] == X and row[2] == X:
             return X
@@ -104,21 +132,15 @@ def winner(board):
     return None
     
 
-    
-    
-        
-        
- 
-
-
-    
-
 
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
+    print("TERMAINAL CHECK BOARD", board)
     if winner(board) == X or winner(board) == O:
+        return True
+    elif actions(board) == None:
         return True
     else:
         return False
@@ -129,14 +151,36 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    raise NotImplementedError
+    print("UTILITY CHECK BOARD", board)
+    if terminal(board):
+        if winner(board) == X:
+            print(" good x move")
+            return 1
+        elif winner(board) == O:
+            print(" good o move")
+            return -1
+        else:
+            return 0
+    
 
 
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    
+    possible_Actions = actions(board)
+    print("possible actions", possible_Actions)
+    for action in possible_Actions:
+        print("checkin action", action)
+        potentialAction = result(board, action)
+        print("potential action", potentialAction)
+        if utility(potentialAction) == 1:
+            print("optimal action", action)
+            return action
+        elif utility(potentialAction) == 0:
+            return None
+
 
 
 

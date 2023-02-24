@@ -38,27 +38,49 @@ def winner(board):
         
     
      
-        
-        
 
         
 
         
+
         
         
+        
 
 
 
-            
+from tictactoe import minimax, result
+
+          
 
 
 
 X = "X"
 O = "O"
-sampleboard = [[O, None, X],
-               [X, X, None],
-               [X, None, O]
+EMPTY = ""
+
+sampleboard = [[EMPTY, EMPTY, EMPTY,],
+               [EMPTY, EMPTY, EMPTY],
+               [EMPTY, EMPTY, X]
 ]
+
+print(minimax(sampleboard))
+
+def actions(board):
+    """
+    Returns set of all possible actions (i, j) available on the board.
+    """
+    actions = set()
+    #test each row of the board
+    for i in range(3):
+        #test each column of the board
+        for j in range(3):
+            if board[i][j] == EMPTY:
+                actions.add((i, j)) #each action is represted by a tuple (i, j), each (i, j) in the set is a position on the board (0,0) is the top left corner
+    
+    return actions
+      
+print(actions(sampleboard), "empto")
 
 print(sampleboard, "start state")
 

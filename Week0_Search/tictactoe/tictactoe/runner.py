@@ -13,9 +13,9 @@ white = (255, 255, 255)
 
 screen = pygame.display.set_mode(size)
 
-mediumFont = pygame.font.Font("OpenSans-Regular.ttf", 28)
-largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
-moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
+mediumFont = pygame.font.SysFont("arial", 28)
+largeFont = pygame.font.SysFont("arial", 40)
+moveFont = pygame.font.SysFont("arial", 60)
 
 user = None
 board = ttt.initial_state()
@@ -112,7 +112,9 @@ while True:
         if user != player and not game_over:
             if ai_turn:
                 time.sleep(0.5)
+                print('CALL AI')
                 move = ttt.minimax(board)
+                
                 board = ttt.result(board, move)
                 ai_turn = False
             else:
@@ -125,6 +127,7 @@ while True:
             for i in range(3):
                 for j in range(3):
                     if (board[i][j] == ttt.EMPTY and tiles[i][j].collidepoint(mouse)):
+                        print("user turn")
                         board = ttt.result(board, (i, j))
 
         if game_over:
