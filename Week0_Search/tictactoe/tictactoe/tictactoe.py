@@ -84,8 +84,7 @@ def result(board, action):
             newBoard[action[0]][action[1]] = O
             print("board after a move", newBoard)
             return newBoard
-        else:
-            raise Exception("Not a valid Action")
+    
     
     print("board is being dumb")
 
@@ -174,12 +173,15 @@ def minimax(board):
     for action in possible_Actions:
         print("checkin action", action)
         potentialAction = result(board, action)
+        print(utility(potentialAction), "utility")
         print("potential action", potentialAction)
+        print(utility(potentialAction), "utility")
         if utility(potentialAction) == 1:
             print("optimal action", action)
             return action
+        
         elif utility(potentialAction) == 0:
-            return None
+            return action
 
 
 
