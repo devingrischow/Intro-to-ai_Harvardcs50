@@ -4,6 +4,8 @@ def winner(board):
     """
 
     #Side To Side check
+    print("side to side check")
+    print(board)
     for row in board:
         if row[0] == X and row[1] == X and row[2] == X:
             return X
@@ -29,9 +31,7 @@ def winner(board):
         return O
     
     return None
-    
-
-    
+ 
     
         
         
@@ -49,7 +49,7 @@ def winner(board):
 
 
 
-from tictactoe import minimax, result
+from tictactoe import winner
 
           
 
@@ -59,12 +59,12 @@ X = "X"
 O = "O"
 EMPTY = ""
 
-sampleboard = [[EMPTY, EMPTY, EMPTY,],
-               [EMPTY, EMPTY, EMPTY],
-               [EMPTY, EMPTY, X]
+sampleboard = [[O, EMPTY, X,],
+               [EMPTY, X, EMPTY],
+               [X, EMPTY, X]
 ]
 
-print(minimax(sampleboard))
+print(winner(sampleboard))
 
 def actions(board):
     """
