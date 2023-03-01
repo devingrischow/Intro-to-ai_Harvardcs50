@@ -102,6 +102,9 @@ def winner(board):
     Returns the winner of the game, if there is one.
     """
 
+    #Rapid Win/Lose Check
+    #rowCheck
+
     #Charles diagonal Check
     print("diagonal check")
     print(board[0][0], board[1][1], board[2][2])
@@ -112,7 +115,7 @@ def winner(board):
         return O
     
     #other diagonal Check
-    if board[0][2] == X and board[1][1] == X and board[2][0] == X:
+    elif board[0][2] == X and board[1][1] == X and board[2][0] == X:
         return X
     elif board[0][0] == X and board[1][1] == X and board[2][2] == X:
         return X
@@ -181,22 +184,66 @@ def minimax(board):
     
     
     if player(board) == O:
-        value, movee = min_value(board)
+        m,movee = min_value(board)
         return movee
-        
-    # possible_Actions = actions(board)
-    # print("possible actions", possible_Actions)
-    # if player(board) == O:
-    #     #get a list of all moves for X
-    #     moves = []
-    #     for action in possible_Actions:
-    #         move = result(board, action)
-    #         moves.append(move)
-    #     #tales all possible moves, and returns only the best action
-    #     bestPlay = playBestOnX(moves, possible_Actions)
-    #     print("THE BEST PLAY IS", bestPlay)
-    #     return bestPlay
+    if player(board) == X:
+        m,movee = max_value(board)
+        return movee
 
+
+
+
+def maxErValue(board):
+    #returns max value of board/ and the optimal move
+    if terminal(board):
+        print("Board is filled")
+
+        return None
+    
+    move = None
+    v = float("-inf")
+    for action in actions(board):
+        actionPotential = minnerValue(result(board, action))
+        print(utility(actionPotential), "UTIACTION")
+        
+        if utility(actionPotential) > v:
+            move = action
+            v = utility(actionPotential)
+            if v == 1:
+                return move 
+            
+    return move
+
+
+
+
+
+
+
+def minnerValue(board):
+    #returns max value of board/ and the optimal move
+    if terminal(board):
+        print("Board is filled")
+        print(winner(board))
+
+        return None
+    move = None
+    v = float("inf")
+    for action in actions(board):
+        #the entire board is solved before we even leave for loop
+        actionPotential = maxErValue(result(board, action))
+        print(utility(actionPotential), "UTIACTION")
+        if utility(actionPotential) < v:
+            
+            move = action
+            v = utility(actionPotential)
+            if v == -1:
+                return move 
+    return move
+
+
+   
+#v is used to help store what the optimal value of the best move is. 
 def max_value(board):
     if terminal(board):
         return utility(board), None
@@ -215,6 +262,7 @@ def max_value(board):
     return v, move
 
 
+
 def min_value(board):
     if terminal(board):
         return utility(board), None
@@ -231,38 +279,6 @@ def min_value(board):
                 return v, move
 
     return v, move
-# def max_Value(board):
-#     print("Seeing maxvalue")
-#     if terminal(board):
-#         return None
-#     move = None
-#     for action in actions(board):
-#         move = action
-#         resultOfMove = result(board, action)
-#         min = min_value(resultOfMove) 
-#         if utility(min) == 1:
-#             return move
-#     return move
-        
-
-
-
-
-
-# def min_value(board):
-#     print("Seeing minvalue")
-#     if terminal(board):
-#         return None
-#     move = None
-#     for action in actions(board):
-#         move = action
-#         resultOfMove = result(board, action)
-#         max = max_Value(resultOfMove)
-#         if utility(max) == -1:
-#             return move
-#     return move 
-    
-     
 
 
         
@@ -316,28 +332,6 @@ def playBestOnX(actionsToTest, CORRESPONDING_ACTIONS):
 
 
 
-
-
-
-
-    #         resultOfMove = result(board, action)
-    #         if utility(resultOfMove) ==  
-        
-         
-
-
-    # for action in possible_Actions:
-    #     print("checkin action", action)
-    #     potentialAction = result(board, action)
-    #     print(utility(potentialAction), "utility")
-    #     print("potential action", potentialAction)
-    #     print(utility(potentialAction), "utility")
-    #     if utility(potentialAction) == 1:
-    #         print("optimal anti action", action)
-    #         return action
-        
-    #     elif utility(potentialAction) == -1:
-    #         return action
 
 
 
