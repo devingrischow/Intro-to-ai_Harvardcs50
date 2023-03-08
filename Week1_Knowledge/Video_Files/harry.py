@@ -13,9 +13,9 @@
 
 # print(model_check(knowledge, rain))
 from logic import *
-rain = Symbol("rain") # It is Raining
-hagrid = Symbol("hagrid") #harry visited hagrid
-dumbledore = Symbol("dumbledore") #Harry Visited Dumbledore
+rain = Symbol("rain") 
+hagrid = Symbol("hagrid") 
+dumbledore = Symbol("dumbledore") 
 
 
 sentance = And(rain, hagrid)

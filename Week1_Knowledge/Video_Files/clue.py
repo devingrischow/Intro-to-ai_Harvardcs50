@@ -48,5 +48,5 @@ knowledge.add(Or(
 # Known cards
 knowledge.add(Not(plum))
 knowledge.add(Not(ballroom))
-
+print(knowledge)
 check_knowledge(knowledge)
